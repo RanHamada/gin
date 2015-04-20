@@ -76,6 +76,11 @@ type Context struct {
 /********** CONTEXT CREATION ********/
 /************************************/
 
+func CreateContext(w http.ResponseWriter, req *http.Request) *Context {
+	engine := New()
+	return engine.createContext(w, req, nil, nil)
+}
+
 func (engine *Engine) createContext(w http.ResponseWriter, req *http.Request, params httprouter.Params, handlers []HandlerFunc) *Context {
 	c := engine.pool.Get().(*Context)
 	c.writermem.reset(w)
